@@ -61,7 +61,7 @@ After you're finished please remove all the comments and instructions!
 
 > Describe your project in 1 or 2 sentences.
 
-**[your_project__name]** is a...
+Near-Rust is a...
 
 ## 🛠 Built With <a name="built-with"></a>
 
@@ -72,21 +72,21 @@ After you're finished please remove all the comments and instructions!
 <details>
   <summary>Client</summary>
   <ul>
-    <li><a href="https://reactjs.org/">React.js</a></li>
+    <li><a href="">create-near-app</a></li>
   </ul>
 </details>
 
 <details>
   <summary>Server</summary>
   <ul>
-    <li><a href="https://expressjs.com/">Express.js</a></li>
+    <li><a href="">Localhost</a></li>
   </ul>
 </details>
 
 <details>
 <summary>Database</summary>
   <ul>
-    <li><a href="https://www.postgresql.org/">PostgreSQL</a></li>
+    <li><a href="">Near Blockchain</a></li>
   </ul>
 </details>
 
@@ -116,83 +116,106 @@ After you're finished please remove all the comments and instructions!
 
 ## 💻 Getting Started <a name="getting-started"></a>
 
-> Describe how a new developer could make use of your project.
+==================
 
-To get a local copy up and running, follow these steps.
+This app was initialized with [create-near-app]
 
-### Prerequisites
 
-In order to run this project you need:
+Quick Start
+===========
 
-<!--
-Example command:
+If you haven't installed dependencies during setup:
 
-```sh
- gem install rails
-```
- -->
+    npm install
 
-### Setup
 
-Clone this repository to your desired folder:
+Build and deploy your contract to TestNet with a temporary dev account:
 
-<!--
-Example commands:
+    npm run deploy
 
-```sh
-  cd my-folder
-  git clone git@github.com:myaccount/my-project.git
-```
---->
+Test your contract:
 
-### Install
+    npm test
 
-Install this project with:
+If you have a frontend, run `npm start`. This will run a dev server.
 
-<!--
-Example command:
 
-```sh
-  cd my-project
-  gem install
-```
---->
+Exploring The Code
+==================
 
-### Usage
+1. The smart-contract code lives in the `/contract` folder. See the README there for
+   more info. In blockchain apps the smart contract is the "backend" of your app.
+2. The frontend code lives in the `/frontend` folder. `/frontend/index.html` is a great
+   place to start exploring. Note that it loads in `/frontend/index.js`,
+   this is your entrypoint to learn how the frontend connects to the NEAR blockchain.
+3. Test your contract: `npm test`, this will run the tests in `integration-tests` directory.
 
-To run the project, execute the following command:
 
-<!--
-Example command:
+Deploy
+======
 
-```sh
-  rails server
-```
---->
+Every smart contract in NEAR has its [own associated account][NEAR accounts]. 
+When you run `npm run deploy`, your smart contract gets deployed to the live NEAR TestNet with a temporary dev account.
+When you're ready to make it permanent, here's how:
 
-### Run tests
 
-To run tests, run the following command:
+Step 0: Install near-cli (optional)
+-------------------------------------
 
-<!--
-Example command:
+[near-cli] is a command line interface (CLI) for interacting with the NEAR blockchain. It was installed to the local `node_modules` folder when you ran `npm install`, but for best ergonomics you may want to install it globally:
 
-```sh
-  bin/rails test test/models/article_test.rb
-```
---->
+    npm install --global near-cli
 
-### Deployment
+Or, if you'd rather use the locally-installed version, you can prefix all `near` commands with `npx`
 
-You can deploy this project using:
+Ensure that it's installed with `near --version` (or `npx near --version`)
 
-<!--
-Example:
 
-```sh
+Step 1: Create an account for the contract
+------------------------------------------
 
-```
- -->
+Each account on NEAR can have at most one contract deployed to it. If you've already created an account such as `your-name.testnet`, you can deploy your contract to `near-blank-project.your-name.testnet`. Assuming you've already created an account on [NEAR Wallet], here's how to create `near-blank-project.your-name.testnet`:
+
+1. Authorize NEAR CLI, following the commands it gives you:
+
+      near login
+
+2. Create a subaccount (replace `YOUR-NAME` below with your actual account name):
+
+      near create-account near-blank-project.YOUR-NAME.testnet --masterAccount YOUR-NAME.testnet
+
+Step 2: deploy the contract
+---------------------------
+
+Use the CLI to deploy the contract to TestNet with your account ID.
+Replace `PATH_TO_WASM_FILE` with the `wasm` that was generated in `contract` build directory.
+
+    near deploy --accountId near-blank-project.YOUR-NAME.testnet --wasmFile PATH_TO_WASM_FILE
+
+
+Step 3: set contract name in your frontend code
+-----------------------------------------------
+
+Modify the line in `src/config.js` that sets the account name of the contract. Set it to the account id you used above.
+
+    const CONTRACT_NAME = process.env.CONTRACT_NAME || 'near-blank-project.YOUR-NAME.testnet'
+
+
+
+Troubleshooting
+===============
+
+On Windows, if you're seeing an error containing `EPERM` it may be related to spaces in your path. Please see [this issue](https://github.com/zkat/npx/issues/209) for more details.
+
+
+  [create-near-app]: https://github.com/near/create-near-app
+  [Node.js]: https://nodejs.org/en/download/package-manager/
+  [jest]: https://jestjs.io/
+  [NEAR accounts]: https://docs.near.org/concepts/basics/account
+  [NEAR Wallet]: https://wallet.testnet.near.org/
+  [near-cli]: https://github.com/near/near-cli
+  [gh-pages]: https://github.com/tschaub/gh-pages
+
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -236,7 +259,7 @@ Feel free to check the [issues page](../../issues/).
 
 > Write a message to encourage readers to support your project
 
-If you like this project...
+If you like this project and want to support it, please consider giving it a ⭐️ on GitHub.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -246,7 +269,7 @@ If you like this project...
 
 > Give credit to everyone who inspired your codebase.
 
-I would like to thank...
+I thank Allah Almight the most merciful and the most forgiving for giving me the strength to complete this project.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -272,7 +295,10 @@ I would like to thank...
 
 This project is [MIT](./LICENSE) licensed.
 
-_NOTE: we recommend using the [MIT license](https://choosealicense.com/licenses/mit/) - you can set it up quickly by [using templates available on GitHub](https://docs.github.com/en/communities/setting-up-your-project-for-healthy-contributions/adding-a-license-to-a-repository). You can also use [any other license](https://choosealicense.com/licenses/) if you wish._
-
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
+<img src='./1.png' width='100%' style='margin 0 auto'/>
+<img src='./2.png' width='100%' style='margin 0 auto'/>
+<img src='./3.png' width='100%' style='margin 0 auto'/>
+<img src='./4.png' width='100%' style='margin 0 auto'/>
+<img src='./5.png' width='100%' style='margin 0 auto'/>
