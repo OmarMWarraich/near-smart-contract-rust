@@ -269,7 +269,7 @@ If you like this project and want to support it, please consider giving it a ⭐
 
 > Give credit to everyone who inspired your codebase.
 
-I thank Allah Almight the most merciful and the most forgiving for giving me the strength to complete this project.
+I thank Allah Almighty the most merciful and the most forgiving for giving me the strength to complete this project.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
